@@ -17,7 +17,4 @@ def test_fetch_incidents_valid_url():
         os.remove(pdf_file_path)
 
 
-def test_fetch_local_file():
-    # Test using a local test resource file
-    local_pdf = "/Users/mushkarasaiprakash/Documents/FALL 2024/DE/project_0/cis6930fa24-Project0/tests/test_incidents.pdf"
-    assert os.path.exists(local_pdf), "Local test PDF file should exist for this test."
+

@@ -97,26 +97,31 @@ pipenv run python main.py --incidents "https://www.normanok.gov/sites/default/fi
 - An incident summary is retrieved and shown via the print_status(conn) function from the SQLite database's incidents table. It makes advantage of the supplied database connection (conn) to initiate a SQL query that groups incidents according to their type (kind of incident) and to establish a cursor. The query specifically chooses the type of incident and the number of occurrences for each type, then groups the results appropriately. Next, the outcomes are arranged alphabetically based on the types of incidences.
 - once the data has been cursor-retrieved.The function fetchall() iterates through the rows and outputs, in the format nature|count, the count for each event type (nature). This feature aids in giving a brief summary of the quantity of incidents of each kind that are stored in the database.
 
-
-
-## Dependencies
-
-- Python 3.x
-- PyPDF2
-- sqlite3
-- urllib
-
 ## Testing
 
 The project includes several test files:
 
-- `test_download.py`: Tests the PDF download functionality.
-- `test_random.py`: Tests database creation and population.
+### test_download.py
+
+-To test the fetch_incidents function, which downloads a PDF file from a given URL, use the test_fetch_incidents_valid_url function. This test simulates the fetch process using a working URL that points to a PDF daily incident summary from the City of Norman, Oklahoma. The test uses os.path.exists to confirm that the file actually exists on the local filesystem and that the supplied file path is not None in order to determine whether the fetch_incidents method properly downloaded the PDF. The test does cleanup by erasing the file after verifying that it has been downloaded in order to prevent leaving needless artifacts. This guarantees that the function downloads and stores the PDF file locally in the expected manner.
+
+### test_random.py
+
+**test_create_db**
+This test verifies that the necessary structure and database have been established successfully. The test confirms that the create_db function generates an incident table by using a fixture db_connection, which offers a temporary database connection. It accomplishes this by running a query against the SQLite system tables to see if the incidents table is there. The test passes if the table is there; if not, an assertion error is raised.
+
+**test_populate_db**
+The populate_db function, which adds data to the incidents database, is tested to ensure it operates as intended. In order to insert the sample incident data (two records) into the database, populate_db is called first. The test retrieves every record from the incidents database post insertion and makes the following assertion
+
+**test_cleanup**
+After the tests have completed, this test is in charge of clearing the database file. It deletes the database file normanpd.db if it is detected in the../resources/ directory after verifying that it is there. By performing this cleanup, you can lessen the likelihood that lingering test artifacts will interfere with future tests or clog the file system.
+
 
 To run the tests, use pytest:
 
 ```
-pytest
+pipenv run python -m pytest tests/
+
 ```
 
 ## Notes

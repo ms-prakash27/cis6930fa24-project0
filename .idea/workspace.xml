@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d37b478d-9867-4d89-a477-6bad89f0bfa0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/cis6930fa24-Project0.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/project0/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/project0/db.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/project0/extract.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/project0/fetch.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cis6930fa24-Project0/project0/status.py" afterDir="false" />
-    </list>
+    <list default="true" id="d37b478d-9867-4d89-a477-6bad89f0bfa0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,20 +32,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -240,7 +227,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727496313470</updated>
       <workItem from="1727496315690" duration="10778000" />
-      <workItem from="1727636402711" duration="20852000" />
+      <workItem from="1727636402711" duration="21176000" />
     </task>
     <servers />
   </component>

@@ -93,7 +93,7 @@ def extract_incidents(incident_data):
             row = buffer + " " + row
             # Reset buffer after appending to row
             row = re.sub(r'(\d{4}-\d{8})(?=\S)', r'\1 ', row)
-            row = re.sub(r'(?<=[A-Z0-9/])(?=[A-Z][a-z])', ' ', row)
+            row = re.sub(r'(?<=[A-Z0-9])(?=[A-Z][a-z])', ' ', row)
             # Try to match the combined row
             match = incident_pattern.search(row.strip())
             if match:
@@ -108,6 +108,7 @@ def extract_incidents(incident_data):
                 incidents.append(incident)
 
             buffer = ""
+
 
     # If buffer contains any remaining unmatched content
     if buffer.strip():

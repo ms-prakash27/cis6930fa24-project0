@@ -1,0 +1,1 @@
+https://pypdf.readthedocs.io/en/stable/user/extract-text.html - Used for understanding 

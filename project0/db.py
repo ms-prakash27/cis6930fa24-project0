@@ -27,7 +27,7 @@ def create_db():
         )
     ''')
     conn.commit()
-    print(f"Database created at: {os.path.abspath(db_path)}")  # Print the full path for debugging
+
     return conn
 
 
@@ -48,5 +48,5 @@ def populate_db(conn, incidents):
         ''', (incident_time, incident_number, location, nature, incident_ori))
 
     conn.commit()
-    print('Populated the database with incidents.')
+
 

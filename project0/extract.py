@@ -66,7 +66,7 @@ def extract_incidents(incident_data):
     incident_pattern = re.compile(
         r'(?P<date_time>\d+/\d+/\d+ \d+:\d+)\s+'
         r'(?P<incident_number>\d{4}-\d{8})\s+'
-        r'(?P<location>(?:\d+\s+)?[A-Z0-9 /()~!_\-;.+:&,]+?)'
+        r'(?P<location>(?:\d+\s+)?[A-Z0-9 /()~!_\-;.+:&,\>\<]+?)'
         r'(?:\s+(?=911\s|999\s|112\s|\*\*\*|MVA|COP\s)|(?=\s[A-Z][a-z]))\s*'
         r'(?P<nature>.+?)\s+'
         r'(?P<incident_ori>(?:OK0140200|14005|EMSSTAT|14009|COMMAND))\s*'
@@ -110,8 +110,6 @@ def extract_incidents(incident_data):
             buffer = ""
 
 
-    # If buffer contains any remaining unmatched content
-    if buffer.strip():
-        print(f"Unmatched buffer content: {buffer.strip()}")
+
 
     return incidents

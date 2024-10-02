@@ -1,66 +1,51 @@
-import re
 from pypdf import PdfReader
+import re
 
 
-def extract_incidents(incident_data):
+def extract_incidents(file_path):
+    # Load the PDF
+    reader = PdfReader(file_path)
+
+    # Extract text data from all pages
+    text_data = []
+    for page_num in range(len(reader.pages)):
+        page = reader.pages[page_num]
+        # Extract text using layout mode to preserve text format
+        text = page.extract_text(extraction_mode="layout")
+        text_data.append(text)
+
+    # Parse incidents using double spaces to separate columns
     incidents = []
-    try:
-        pdf_reader = PdfReader(incident_data)
-    except FileNotFoundError:
-        print(f"File not found: {incident_data}")
-        return incidents
-    except Exception as e:
-        print(f"An error occurred while reading the PDF: {e}")
-        return incidents
+    first_row = True  # Flag to track the first row
+    for page_text in text_data:
+        # Split the page text into lines
+        lines = page_text.split('\n')
+        for line in lines:
+            # Use double spaces to split columns
+            columns = re.split(r'\s{2,}', line.strip())
 
-    # Compile the pattern to match a complete incident line
-    incident_pattern = re.compile(
-        r'(?P<date_time>\d+/\d+/\d+ \d+:\d+)\s+'
-        r'(?P<incident_number>\d{4}-\d{8})\s+'
-        r'(?P<location>(?:\d+\s+)?[A-Z0-9 /()~!_\-;.+:&,\>\<]+?)'
-        r'(?:\s+(?=911\s|999\s|112\s|\*\*\*|MVA|COP\s)|(?=\s[A-Z][a-z]))\s*'
-        r'(?P<nature>.+?)\s+'
-        r'(?P<incident_ori>(?:OK0140200|14005|EMSSTAT|14009|COMMAND))\s*'
-    )
+            # Ensure all columns exist to match the expected number of fields
+            if len(columns) >= 5:
+                # Skip the first row if it is the header
+                if first_row:
+                    first_row = False
+                    continue
 
-    buffer = ""
-    for page in pdf_reader.pages:
-        text = page.extract_text()
-        if not text:
-            continue
-        rows = text.split('\n')
+                # Assuming the order is:
+                # Date / Time | Incident Number | Location | Nature | Incident ORI
+                date_time = columns[0].strip()
+                incident_number = columns[1].strip()
+                location = columns[2].strip()
+                nature = columns[3].strip()
+                incident_ori = columns[4].strip()
 
-        for row in rows:
-            row = row.strip()
-            if row.startswith('Date / Time'):
-                continue
-
-            # Check if the row does not end with the expected ORI codes and accumulate in the buffer
-            if row[0].isdigit() and not (row.endswith('EMSSTAT') or row.endswith('OK0140200') or row.endswith('14005') or row.endswith('14009') or row.endswith('COMMAND')):
-                buffer = row  # Accumulate rows in buffer
-                continue
-
-            # If the buffer is not empty, prepend it to the current row
-            row = buffer + " " + row
-            # Reset buffer after appending to row
-            row = re.sub(r'(\d{4}-\d{8})(?=\S)', r'\1 ', row)
-            row = re.sub(r'(?<=[A-Z0-9])(?=[A-Z][a-z])', ' ', row)
-            # Try to match the combined row
-            match = incident_pattern.search(row.strip())
-            if match:
-                # Extract the data from the matched line
-                incident = {
-                    "date_time": match.group("date_time"),
-                    "incident_number": match.group("incident_number"),
-                    "location": match.group("location").strip(),
-                    "nature": match.group("nature").strip(),
-                    "incident_ori": match.group("incident_ori")
-                }
-                incidents.append(incident)
-
-            buffer = ""
-
-
-
+                # Append incident data as a dictionary
+                incidents.append({
+                    'incident_time': date_time,
+                    'incident_number': incident_number,
+                    'incident_location': location,
+                    'nature': nature,
+                    'incident_ori': incident_ori
+                })
 
     return incidents

@@ -8,11 +8,11 @@ def fetch_incidents(url):
     request = urllib.request.Request(url, headers=headers)
 
     try:
-        # Fetch the PDF data
+        #getting the the PDF data
         with urllib.request.urlopen(request) as response:
             data = response.read()
 
-        # Save the PDF to a temporary file
+        #saving the PDF to a temp file
         pdf_file = "/tmp/incidents.pdf"
         with open(pdf_file, "wb") as f:
             f.write(data)

@@ -7,20 +7,19 @@ import status
 
 
 def main(url):
-    # Step 1: Downloading the data
+    #Downloading the data
     incident_data = fetch.fetch_incidents(url)
 
-    # Step 2: Extracting the data
+    #Extracting the data
     incidents = extract.extract_incidents(incident_data)
 
-
-    # Step 3: Creating a new database
+    #Creating a new database
     database = db.create_db()
 
-    # Step 4: Inserting  data into the database
+    #Inserting  data into the database
     db.populate_db(database, incidents)
 
-    # Step 5: Printing incident counts
+    #Printing the counts of incidents
     status.print_status(database)
 
 

@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d37b478d-9867-4d89-a477-6bad89f0bfa0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/normanpd.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project0/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/project0/db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project0/extract.py" beforeDir="false" afterPath="$PROJECT_DIR$/project0/extract.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project0/fetch.py" beforeDir="false" afterPath="$PROJECT_DIR$/project0/fetch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project0/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/project0/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/normanpd.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/normanpd.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_download.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_download.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_random.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_random.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +48,7 @@
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -234,7 +241,8 @@
       <workItem from="1727496315690" duration="10778000" />
       <workItem from="1727636402711" duration="21490000" />
       <workItem from="1727819068125" duration="9258000" />
-      <workItem from="1727835687420" duration="7228000" />
+      <workItem from="1727835687420" duration="13738000" />
+      <workItem from="1727880472586" duration="3588000" />
     </task>
     <servers />
   </component>

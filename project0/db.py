@@ -5,18 +5,18 @@ import os
 def create_db():
     db_path = os.path.join(os.getcwd(), 'resources', 'normanpd.db')
 
-    # Ensure the resources directory exists
+    #Ensuring that the resources directory exists
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
 
-    # Delete the database file if it exists
+    #Deleting the database file if it exists
     if os.path.exists(db_path):
         os.remove(db_path)
 
-    # Create a new database connection
+    #Creating a new database connection
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # Create incidents table
+    #Creating the incidents table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS incidents (
             incident_time TEXT,
@@ -35,8 +35,8 @@ def populate_db(conn, incidents):
     cursor = conn.cursor()
 
     for incident in incidents:
-        # Ensure all required fields are present in the incident dictionary and handle missing data
-        incident_time = incident.get('datetime', 'Unknown')
+        #Making sure the incident dictionary contains all necessary fields and handling missing data
+        incident_time = incident.get('date_time', 'Unknown')
         incident_number = incident.get('incident_number', 'Unknown')
         location = incident.get('location', 'Unknown')
         nature = incident.get('nature', 'Unknown')

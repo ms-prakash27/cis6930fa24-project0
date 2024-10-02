@@ -11,7 +11,7 @@ def extract_incidents(file_path):
     text_data = [page.extract_text(extraction_mode="layout") for page in reader.pages]
 
 
-    #parisng all the incident using doubles spaces to seperate columns
+    #parisng all the incident using doubles spaces(more than one double space can be used) to seperate columns
     incidents = []
     #variable to track if the header is skipped or not
     header_skipped = False

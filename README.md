@@ -97,7 +97,8 @@ pipenv run python -m pytest tests/
 ```
 
 # Bugs and Assumptions
+
 - Assumed that the provided URL is accessible and contains a valid PDF file
 - Assumed that the PDF contains at least 5 columns: Date/Time, Incident Number, Location, Nature, and Incident ORI.
-- Assumed the 
+- Skipped the first row while extracting pdf becasue they contain headers which are disturbing the insertion to DB
 

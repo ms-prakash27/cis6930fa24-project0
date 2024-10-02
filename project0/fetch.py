@@ -19,6 +19,7 @@ def fetch_incidents(url):
 
         return pdf_file
     except urllib.error.URLError as e:
-        raise Exception(f"Failed to fetch incidents due to a URL error: {e}")
+        raise Exception(f"faling to fetch incident because of a url-error: {e}")
     except Exception as e:
-        raise Exception(f"Failed to fetch incidents: {e}")
+        raise Exception(f"failing to fetch incidents"
+                        f": {e}")

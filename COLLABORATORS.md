@@ -1,1 +1,1 @@
-https://pypdf.readthedocs.io/en/stable/user/extract-text.html - Used for understanding 
+Original pypdf docs | https://pypdf.readthedocs.io/en/stable/user/extract-text.html | Used for understanding pdf extraction,precisely for extractext()

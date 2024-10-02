@@ -4,14 +4,13 @@ This project processes the PDF incident reports that the Norman, Oklahoma police
 
 ## Project Structure
 
-- `main.py`: The entry point of the application.
-- `fetch.py`: Handles downloading the incident PDF from a given URL.
-- `extract.py`: Extracts incident data from the downloaded PDF.
-- `db.py`: Manages database operations (creation and population).
-- `status.py`: Generates and prints a summary of incidents.
+- `main.py`: starting point of the application.
+- `fetch.py`: handling downloading the incident PDF from a given URL.
+- `extract.py`: extracting the incident data from the downloaded PDF.
+- `db.py`: for managing the database operations (creation and population).
+- `status.py`: generate and prints a summary of incidents.
 
 ## How to Install
-
 
 
 This project requires python, preferable version 3.12 and pipenv should be installed
@@ -27,6 +26,7 @@ pipenv shell
 
 ## How to run
 
+For getting incidents in the form that has been asked in the project we have to run the following command at the project directory
 ```
 pipenv run python project0/main.py --incidents <URL_TO_INCIDENT_PDF>
 ```
@@ -35,6 +35,9 @@ ex:
 pipenv run python main.py --incidents "https://www.normanok.gov/sites/default/files/documents/2024-08/2024-08-01_daily_incident_summary.pdf"
 ```
 
+### video 
+
+https://drive.google.com/file/d/1o_u_aoD6EVa5TlknuncQxJ5FN12oEYuB/view?usp=sharing
 
 
 
@@ -42,53 +45,20 @@ pipenv run python main.py --incidents "https://www.normanok.gov/sites/default/fi
 
 ### main.py
 
-- `main(url)`: Orchestrates the entire process:
-  1. Downloads the incident data
-  2. Extracts incidents from the PDF
-  3. Creates a new database
-  4. Populates the database with extracted incidents
-  5. Prints the incident summary
-
+- The `main(url)` function uses the `fetch.py` module to download the incident data from a specified URL before orchestrating the whole incident data processing procedure. Following a successful PDF retrieval, the `extract.py` program organizes the important data fields for analysis by extracting pertinent incident information. The required structure to store the extracted data is then established by `main(url)`, which uses the `db.py` module to construct a new SQLite database. The method creates and publishes an incident summary as soon as the database is filled with incidents, giving users a concise rundown of the data that has been extracted. The smooth transition from data retrieval to summary presentation is guaranteed by this integrated technique.
+- 
 ### fetch.py
 
-- The fetch.py file is responsible for downloading incident reports in PDF format from a specified URL. Using urllib.request, the primary function fetch_incidents(url) sends an HTTP call to the specified URL and saves the PDF file to a temporary directory (/tmp/incidents.pdf). It provides the path to the saved PDF file for additional processing after a successful download. The function also offers error handling techniques, such as resolving URL-related errors and exceptions, ensuring robust handling of situations like missing files or failed requests.
+- The fetch.py file is responsible for downloading incident reports in PDF format from a specified URL. Using urllib.request, the primary function fetch_incidents(url) sends an HTTP call to the specified URL and saves the PDF file to a temporary directory (/tmp/incidents.pdf). It provides the path to the saved PDF file for additional processing after a successful download. The function also offers error handling techniques, such as resolving URL-related errors and exceptions, ensuring handling of situations like missing files or failed requests.
 
 
 ### extract.py
 
-- The extract.py file uses the PyPDF2 library and regular expressions to extract incident data from the downloaded PDF. The PdfReader from PyPDF2 is used by the main method, extract_incidents(incident_data), to load and parse the PDF. Every page of the document is iterated through, with the text extracted and regex patterns applied to identify important fields like Date/Time, Incident Number, Location, Nature, and Incident ORI. After that, each instance that matches is added to a list for later use. In order to handle situations such as missing files or problems with text extraction, the function also has error handling.
-
-#### regex used
-
-        r'(?P<date_time>\d+/\d+/\d+ \d+:\d+)\s+'
-        r'(?P<incident_number>\d{4}-\d{8})\s+'
-        r'(?P<location>(?:\d+\s+)?[A-Z0-9 /()~!_\-;.+:&,]+?)'
-        r'(?:\s+(?=911\s|999\s|112\s|\*\*\*)|(?=\s[A-Z][a-z]))\s*'
-        r'(?P<nature>.+?)\s+'
-        r'(?P<incident_ori>[A-Z0-9]+)$'
-
-- **DateTime**
-   - r'(?P<date_time>\d+/\d+/\d+ \d+:\d+)\s+' - (?P<date_time>...) is a named group called "date_time," which makes it simple to refer to this portion of the match. 
-   - A date format is represented as \d+/\d+/\d+, where \d+ denotes one or more digits separated by /, such as "09/30/2024."
-   - "A space followed by \d+:\d+ matches the time portion in hh:mm format, e.g.," 11:44.
-   - \s+ guarantees that the date and time are followed by one or more spaces.
-   - we may also use r'^(?P<date_time>\d{1,2}/\d{1,2}/\d{4}\s\d{1,2}:\d{2})\s+'. It offers a fixed length of month, date, and year.
-- **Incident_Number**
-  -r'(?P<incident_number>\d{4}-\d{8})\s+'
-  - An incident number with four digits, a hyphen, and eight digits is matched by this regex pattern. The \s+ makes sure that the incident number is followed by one or more spaces. In a named group called incident_number, the pattern records the incident number.
-- **Location** 
-  r'(?P<location>(?:\d+\s+)?[A-Z0-9 /()~!_\-;.+:&,]+?)'
-        r'(?:\s+(?=911\s|999\s|112\s|\*\*\*)|(?=\s[A-Z][a-z]))\s*'
-  - This regex pattern corresponds to an incident's location. The first portion, (?:\d+\s+)?, allows for places that begin with numbers (e.g., street addresses) by optionally capturing one or more digits followed by spaces. The primary section, [A-Z0-9 /()~!_\-;.+:&,]+?, corresponds to a series of alphanumeric characters and frequently used address symbols. The second part, (?:\s+(?=911\s|999\s|112\s|\*\*\*)|(?=\s[A-Z][a-z])), ensures that the match is followed by particular emergency numbers (such 911, 999, 112, or "***") or a capital letter followed by lowercase letters, which helps identify where the location ends and other fields (like nature) begin.
--  **Nature**
-   -  r'(?P<nature>.+?)\s+' 
-   - The context of the incident is captured by this regex pattern. In order to capture the shortest text before coming across a space, the expression (?P<nature>.+?) employs the.+? to match any character (apart from newlines) in a non-greedy manner. By indicating that this field ends before the next, the \s+ makes sure that there are one or more spaces after the matching nature text. we can simple regex for this.
--  **Incident_ORI**
-  - The incident ORI field is composed of uppercase letters (A-Z) and digits (0-9), which are captured by this regex pattern. One or more instances of capital letters or numbers are matched by the pattern (?P<incident_ori>[A-Z0-9]+), and the $ makes sure that this field is at the end of the line. It stands in for the officer or organization that caused the incident.
+- The extract_incidents function basically extracts incident data from PDF documents. It uses the PdfReader class from the pypdf package. This function is for documents containing tabular data separated by more than one space(here in this project). The method starts with loading the specified PDF file and extracting text from each page while maintaining the layout. The retrieved text is processed line by line, with regular expressions dividing each line into columns based on more than one space(for simplicity used double space as there no other double space). This ensures that data is correctly parsed, even if columns are not aligned. To properly manage headers, the function skips the first row of data on each page if it is recognized as a header, assuring only true incident data is processed.
+- Each line of data is mapped to specific fields: date/time, incident number, location, nature, and incident ORI. These fields are combined into a dictionary that represents a single occurrence, and all incidents are grouped into a list of dictionaries for organized output. The function assumes that the PDF is formatted with more than one space(my obseravtion) between data fields; changes may be required for other formats. To use this function, pass the path to the PDF file and cycle through the resulting list of dictionaries to get detailed information about each incident.
 
 
-
-### db.py
+### Database Development - db.py
 
 - The SQLite database used to hold incident data is managed via the db.py file. It defines populate_db(conn, incidents) and create_db() as its two main functions. In order to establish a new SQLite database, the create_db() function first makes sure the resources directory is there and deletes any previous database files. After that, it makes a connection and produces a table called incidents, which is organized to hold information about the incident time,Incident number, location, nature, and incident_ori that is in charge. By repeatedly going through the incident data that has been provided and committing each item, the populate_db() function creates a list of incident entries in the database. The database is efficiently set up and populated thanks to this modular architecture, which also makes it simple to store and retrieve police incident reports.
 
@@ -99,22 +69,24 @@ pipenv run python main.py --incidents "https://www.normanok.gov/sites/default/fi
 
 ## Testing
 
-The project includes several test files:
+The project includes 3 test files:
 
 ### test_download.py
 
--To test the fetch_incidents function, which downloads a PDF file from a given URL, use the test_fetch_incidents_valid_url function. This test simulates the fetch process using a working URL that points to a PDF daily incident summary from the City of Norman, Oklahoma. The test uses os.path.exists to confirm that the file actually exists on the local filesystem and that the supplied file path is not None in order to determine whether the fetch_incidents method properly downloaded the PDF. The test does cleanup by erasing the file after verifying that it has been downloaded in order to prevent leaving needless artifacts. This guarantees that the function downloads and stores the PDF file locally in the expected manner.
+- The function test_fetch_incidents downloads a PDF file from the Norman Police Department in order to test the fetch.fetch_incidents method. It checks to make sure the file exists and is not empty and has a size larger than zero in order to confirm that the PDF file was downloaded successfully. To keep the testing environment organized, the method removes the downloaded file after making these assertions. This method assists in verifying that the incident summary was successfully downloaded and that the fetch module handled the file appropriately.
 
+### test_extract.py
+- Using data extracted from a local test PDF file (tests/test_normanpd.pdf), the test_extract_incidents function tests the extract_incidents method. It initially verifies the proper output format by ensuring that the extracted data is returned as a list. After that, the function checks to see if the list is empty to make sure that some incident data was successfully taken out of the PDF. The function loops over all entries and verifies that they contain the anticipated set of keys—incidence_time, incident_number, incident_location, nature, and incident_ori—in order to validate the structure of each incident. This guarantees that every occurrence that is extracted has the necessary characteristics and adheres to the right schema. These validations jointly indicate that extract_incidents correctly processes the PDF and delivers appropriately structured incident data.
 ### test_random.py
 
-**test_create_db**
-This test verifies that the necessary structure and database have been established successfully. The test confirms that the create_db function generates an incident table by using a fixture db_connection, which offers a temporary database connection. It accomplishes this by running a query against the SQLite system tables to see if the incidents table is there. The test passes if the table is there; if not, an assertion error is raised.
+**setup_database**
+- A temporary SQLite database connection is created for testing purposes via the setup_database method, which is a test fixture. After creating the database using the db.create_db() function, it returns the connection for usage in each test case. To keep the testing environment tidy, the function makes sure the database is correctly closed and erased after the tests are finished. The cleanup process is handled by checking if the database file exists and eliminating it, avoiding any leftover files from collecting.
+
+**test_createdb**
+- The purpose of the test_createdb function is to verify that the incidents table in the database was created and is organized correctly. In order to verify that the incidents table has been correctly created, it first queries the database. The table's schema information is then retrieved using a PRAGMA query, and it is claimed to have exactly 5 columns, in accordance with the expected structure. This guarantees that the table is correctly configured in accordance with the database module's specifications.
 
 **test_populate_db**
-The populate_db function, which adds data to the incidents database, is tested to ensure it operates as intended. In order to insert the sample incident data (two records) into the database, populate_db is called first. The test retrieves every record from the incidents database post insertion and makes the following assertion
-
-**test_cleanup**
-After the tests have completed, this test is in charge of clearing the database file. It deletes the database file normanpd.db if it is detected in the../resources/ directory after verifying that it is there. By performing this cleanup, you can lessen the likelihood that lingering test artifacts will interfere with future tests or clog the file system.
+- The primary goal of the test_populate_db function is to confirm that the database has been correctly populated with incident data. It simulates the process of parsing incident reports by extracting data using the extract_incidents function from a test PDF file (test_normanpd.pdf). After the data is extracted, db.populate_db(conn, extracted_data) is used to insert it into the incidents table. The function verifies that the data insertion procedure is successful by checking to see if the table is empty after the database has been filled.
 
 
 To run the tests, use pytest:
@@ -124,9 +96,8 @@ pipenv run python -m pytest tests/
 
 ```
 
-## Notes
-
-- The project uses a SQLite database stored in `../resources/normanpd.db`.
-- Ensure you have the necessary permissions to write to the `/tmp/` directory and the `resources` folder.
-- The project includes error handling for various scenarios, such as network issues or file not found errors.
+# Bugs and Assumptions
+- Assumed that the provided URL is accessible and contains a valid PDF file
+- Assumed that the PDF contains at least 5 columns: Date/Time, Incident Number, Location, Nature, and Incident ORI.
+- Assumed the 
 

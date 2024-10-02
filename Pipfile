@@ -5,8 +5,8 @@ name = "pypi"
 
 [packages]
 pytest = "*"
-pypdf2 = "*"
 pytest-runner = "*"
+pypdf = "*"
 
 [dev-packages]
 

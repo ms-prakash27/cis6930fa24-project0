@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d37b478d-9867-4d89-a477-6bad89f0bfa0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project0/extract.py" beforeDir="false" afterPath="$PROJECT_DIR$/project0/extract.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project0/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/project0/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/normanpd.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/normanpd.db" afterDir="false" />
-    </list>
+    <list default="true" id="d37b478d-9867-4d89-a477-6bad89f0bfa0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -234,7 +229,7 @@
       <workItem from="1727496315690" duration="10778000" />
       <workItem from="1727636402711" duration="21490000" />
       <workItem from="1727819068125" duration="9258000" />
-      <workItem from="1727835687420" duration="5458000" />
+      <workItem from="1727835687420" duration="5845000" />
     </task>
     <servers />
   </component>

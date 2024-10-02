@@ -11,7 +11,8 @@ def main(url):
     incident_data = fetch.fetch_incidents(url)
 
     # Step 2: Extracting the data
-    incidents = extract.extract_incidents(incident_data)
+    incidents = extract.extract_data(incident_data)
+
 
     # Step 3: Creating a new database
     database = db.create_db()

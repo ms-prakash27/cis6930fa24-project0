@@ -1,5 +1,8 @@
 # CIS6930FA24 -- PROJECT 0 -- README
 
+
+# Project Description
+
 This project processes the PDF incident reports that the Norman, Oklahoma police department provides. The system retrieves the PDF file from the specified URL, takes out the report's essential fields (date, incident number, location, nature, and officer; ORI), and stores the information in a SQLite database. After that, it prints the number of each type of incident to provide an overview of their nature. The project is modular, with distinct functions for database operations, extraction, fetching, and publishing status.
 
 ## Project Structure
@@ -19,7 +22,7 @@ for installing dependenices use
 ```
 pipenv install
 ```
-For initializing a virtual emvironment use
+For initializing virtual environment we use
 ```
 pipenv shell
 ```
@@ -34,19 +37,16 @@ ex:
 ```
 pipenv run python main.py --incidents "https://www.normanok.gov/sites/default/files/documents/2024-08/2024-08-01_daily_incident_summary.pdf"
 ```
-
 ### video 
 
 https://drive.google.com/file/d/1o_u_aoD6EVa5TlknuncQxJ5FN12oEYuB/view?usp=sharing
-
-
 
 ## Functions 
 
 ### main.py
 
 - The `main(url)` function uses the `fetch.py` module to download the incident data from a specified URL before orchestrating the whole incident data processing procedure. Following a successful PDF retrieval, the `extract.py` program organizes the important data fields for analysis by extracting pertinent incident information. The required structure to store the extracted data is then established by `main(url)`, which uses the `db.py` module to construct a new SQLite database. The method creates and publishes an incident summary as soon as the database is filled with incidents, giving users a concise rundown of the data that has been extracted. The smooth transition from data retrieval to summary presentation is guaranteed by this integrated technique.
-- 
+
 ### fetch.py
 
 - The fetch.py file is responsible for downloading incident reports in PDF format from a specified URL. Using urllib.request, the primary function fetch_incidents(url) sends an HTTP call to the specified URL and saves the PDF file to a temporary directory (/tmp/incidents.pdf). It provides the path to the saved PDF file for additional processing after a successful download. The function also offers error handling techniques, such as resolving URL-related errors and exceptions, ensuring handling of situations like missing files or failed requests.
@@ -93,10 +93,9 @@ To run the tests, use pytest:
 
 ```
 pipenv run python -m pytest tests/
-
 ```
 
-# Bugs and Assumptions
+## Bugs and Assumptions
 
 - Assumed that the provided URL is accessible and contains a valid PDF file
 - Assumed that the PDF contains at least 5 columns: Date/Time, Incident Number, Location, Nature, and Incident ORI.
